@@ -17,14 +17,17 @@ public class Flight {
     private Long price;
     private Long currentPassangers;
 
-    public Flight(Long id, Long airplaneId, String startDestination, String endDestination, String time, Long price) {
-        this.id = id;
+    public Flight(Long airplaneId, String startDestination, String endDestination, String time, Long price) {
         this.airplaneId = airplaneId;
         this.startDestination = startDestination;
         this.endDestination = endDestination;
         this.time = time;
         this.price = price;
         this.currentPassangers = 0l;
+    }
+
+    public Flight() {
+
     }
 
     void addPassanger() {

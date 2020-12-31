@@ -13,10 +13,14 @@ public class Airplane {
     private String name;
     private Long numberOfSeats;
 
-    public Airplane(Long id, String name, Long numberOfSeats) {
+    public Airplane(String name, Long numberOfSeats) {
         this.id = id;
         this.name = name;
         this.numberOfSeats = numberOfSeats;
+    }
+
+    public Airplane() {
+
     }
 
     public Long getId() {
