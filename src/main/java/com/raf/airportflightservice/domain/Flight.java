@@ -13,15 +13,15 @@ public class Flight {
     private Long airplaneId;
     private String startDestination;
     private String endDestination;
-    private String time;
+    private Long distance;
     private Long price;
     private Long currentPassengers;
 
-    public Flight(Long airplaneId, String startDestination, String endDestination, String time, Long price) {
+    public Flight(Long airplaneId, String startDestination, String endDestination, Long distance, Long price) {
         this.airplaneId = airplaneId;
         this.startDestination = startDestination;
         this.endDestination = endDestination;
-        this.time = time;
+        this.distance = distance;
         this.price = price;
         this.currentPassengers = 0l;
     }
@@ -58,8 +58,48 @@ public class Flight {
         return startDestination;
     }
 
-    public String getTime() {
-        return time;
+    public Long getDistance() {
+        return distance;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setAirplaneId(Long airplaneId) {
+        this.airplaneId = airplaneId;
+    }
+
+    public void setStartDestination(String startDestination) {
+        this.startDestination = startDestination;
+    }
+
+    public void setEndDestination(String endDestination) {
+        this.endDestination = endDestination;
+    }
+
+    public void setDistance(Long distance) {
+        this.distance = distance;
+    }
+
+    public void setPrice(Long price) {
+        this.price = price;
+    }
+
+    public void setCurrentPassengers(Long currentPassengers) {
+        this.currentPassengers = currentPassengers;
+    }
+
+    @Override
+    public String toString() {
+        return "Flight{" +
+                "id=" + id +
+                ", airplaneId=" + airplaneId +
+                ", startDestination='" + startDestination + '\'' +
+                ", endDestination='" + endDestination + '\'' +
+                ", distance=" + distance +
+                ", price=" + price +
+                ", currentPassengers=" + currentPassengers +
+                '}';
+    }
 }

@@ -23,17 +23,33 @@ public class FlightService implements IFlightService {
     }
 
     @Override
-    public List<Flight> searchFlights() {
+    public List<Flight> searchFlights(Flight flight) {
+        if(flight.getStartDestination() != null)
+            return flightRepository.findByStartDestination(flight.getStartDestination());
+        else if(flight.getEndDestination() != null)
+            return flightRepository.findByEndDestination(flight.getEndDestination());
+        else if (flight.getAirplaneId() != null)
+            return flightRepository.findByAirplaneId(flight.getAirplaneId());
+        else if (flight.getPrice() != null)
+            return flightRepository.findByPrice(flight.getPrice());
+        else if (flight.getDistance() != null)
+            return flightRepository.findByDistance(flight.getDistance());
         return null;
     }
 
     @Override
-    public void addFlights(Flight flight) {
-        flightRepository.save(flight);
+    public Boolean addFlights(Flight flight) {
+        try {
+            flightRepository.saveAndFlush(flight);
+            return true;
+        }
+        catch (Exception e) {
+            return false;
+        }
     }
 
     @Override
-    public void deleteFlights(Long id) {
-
+    public Boolean deleteFlights(Long id) {
+        return false;
     }
 }
