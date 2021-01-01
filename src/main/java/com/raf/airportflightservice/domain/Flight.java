@@ -15,7 +15,7 @@ public class Flight {
     private String endDestination;
     private String time;
     private Long price;
-    private Long currentPassangers;
+    private Long currentPassengers;
 
     public Flight(Long airplaneId, String startDestination, String endDestination, String time, Long price) {
         this.airplaneId = airplaneId;
@@ -23,15 +23,15 @@ public class Flight {
         this.endDestination = endDestination;
         this.time = time;
         this.price = price;
-        this.currentPassangers = 0l;
+        this.currentPassengers = 0l;
     }
 
     public Flight() {
 
     }
 
-    void addPassanger() {
-        this.currentPassangers += 1;
+    void addPassenger() {
+        this.currentPassengers += 1;
     }
 
     public Long getId() {
@@ -42,8 +42,8 @@ public class Flight {
         return airplaneId;
     }
 
-    public Long getCurrentPassangers() {
-        return currentPassangers;
+    public Long getCurrentPassengers() {
+        return currentPassengers;
     }
 
     public Long getPrice() {

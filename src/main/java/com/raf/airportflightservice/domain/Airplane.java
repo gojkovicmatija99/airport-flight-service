@@ -14,7 +14,6 @@ public class Airplane {
     private Long numberOfSeats;
 
     public Airplane(String name, Long numberOfSeats) {
-        this.id = id;
         this.name = name;
         this.numberOfSeats = numberOfSeats;
     }
@@ -29,5 +28,9 @@ public class Airplane {
 
     public Long getNumberOfSeats() {
         return numberOfSeats;
+    }
+
+    public String getName() {
+        return name;
     }
 }
