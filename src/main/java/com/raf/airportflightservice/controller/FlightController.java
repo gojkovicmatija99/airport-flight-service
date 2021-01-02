@@ -29,10 +29,9 @@ public class FlightController {
         return new ResponseEntity<>(flightService.getAvailableFlights(pageable), HttpStatus.ACCEPTED);
     }
 
-    @PostMapping("/search")
+    @GetMapping("/search")
     public ResponseEntity<List<Flight>> searchBy(@RequestBody Flight flight) {
         try {
-            System.out.println(flight);
             List<Flight> flightsWithPlaneId = flightService.searchFlights(flight);
             return new ResponseEntity<>(flightsWithPlaneId, HttpStatus.ACCEPTED);
         }

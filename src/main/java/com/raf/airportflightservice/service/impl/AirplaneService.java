@@ -35,9 +35,8 @@ public class AirplaneService implements IAirplaneService {
         try {
             Flight flight = new Flight();
             flight.setAirplaneId(id);
-            ResponseEntity<Object> responseEntity = UtilsMethods.sendPost("http://localhost:8080/search", flight);
+            ResponseEntity<Object> responseEntity = UtilsMethods.sendPost("http://localhost:8080/flight/search", flight);
             List<Flight> flights = (List<Flight>) responseEntity.getBody();
-            System.out.println(flights.size());
             if(flights.size() == 0) {
                 airplaneRepository.deleteById(id);
                 return true;
@@ -46,7 +45,6 @@ public class AirplaneService implements IAirplaneService {
                 return false;
         }
         catch(Exception e) {
-            e.printStackTrace();
             return false;
         }
     }

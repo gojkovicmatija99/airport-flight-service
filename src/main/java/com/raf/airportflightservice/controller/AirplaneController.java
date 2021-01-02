@@ -18,7 +18,7 @@ public class AirplaneController {
         this.airplaneService = airplaneService;
     }
 
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<List<Flight>> deleteAirplane(@PathVariable Long id) {
         Boolean isDeleted = airplaneService.deleteAirplane(id);
         if(isDeleted)
