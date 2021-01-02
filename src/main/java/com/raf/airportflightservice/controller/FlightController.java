@@ -53,4 +53,15 @@ public class FlightController {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
     }
+
+    @GetMapping("/cancel/{flightId}")
+    public ResponseEntity cancelFlight(@PathVariable Long flightId) {
+        try {
+            flightService.cancelFlight(flightId);
+            return new ResponseEntity(HttpStatus.ACCEPTED);
+        }
+        catch (Exception e) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

@@ -21,31 +21,21 @@ public class AirplaneService implements IAirplaneService {
 
     @Override
     public Boolean addAirplane(Airplane airplane) {
-        try {
-            airplaneRepository.saveAndFlush(airplane);
-            return true;
-        }
-        catch (Exception e) {
-            return false;
-        }
+        airplaneRepository.saveAndFlush(airplane);
+        return true;
     }
 
     @Override
     public Boolean deleteAirplane(Long id) {
-        try {
-            Flight flight = new Flight();
-            flight.setAirplaneId(id);
-            ResponseEntity<Object> responseEntity = UtilsMethods.sendPost("http://localhost:8080/flight/search", flight);
-            List<Flight> flights = (List<Flight>) responseEntity.getBody();
-            if(flights.size() == 0) {
-                airplaneRepository.deleteById(id);
-                return true;
-            }
-            else
-                return false;
+        Flight flight = new Flight();
+        flight.setAirplaneId(id);
+        ResponseEntity<Object> responseEntity = UtilsMethods.sendPost("http://localhost:8080/flight/search", flight);
+        List<Flight> flights = (List<Flight>) responseEntity.getBody();
+        if(flights.size() == 0) {
+            airplaneRepository.deleteById(id);
+            return true;
         }
-        catch(Exception e) {
+        else
             return false;
-        }
     }
 }

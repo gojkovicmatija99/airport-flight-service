@@ -3,8 +3,10 @@ package com.raf.airportflightservice.service.impl;
 import com.raf.airportflightservice.domain.Flight;
 import com.raf.airportflightservice.repository.FlightRepository;
 import com.raf.airportflightservice.service.IFlightService;
+import com.raf.airportflightservice.utils.UtilsMethods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,17 +41,14 @@ public class FlightService implements IFlightService {
 
     @Override
     public Boolean addFlight(Flight flight) {
-        try {
-            flightRepository.saveAndFlush(flight);
-            return true;
-        }
-        catch (Exception e) {
-            return false;
-        }
+        flightRepository.saveAndFlush(flight);
+        return true;
     }
 
     @Override
-    public Boolean deleteFlight(Long id) {
-        return false;
+    public Boolean cancelFlight(Long flightId) {
+        flightRepository.setCanceled(flightId);
+        ResponseEntity<Object> responseEntity = UtilsMethods.sendGet("http://localhost:8081/purchase/cancel" + flightId);
+        return true;
     }
 }

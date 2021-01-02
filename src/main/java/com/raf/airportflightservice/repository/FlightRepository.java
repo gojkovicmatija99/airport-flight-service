@@ -3,6 +3,7 @@ package com.raf.airportflightservice.repository;
 import com.raf.airportflightservice.domain.Flight;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -18,4 +19,7 @@ public interface FlightRepository extends JpaRepository<Flight, Long> {
     List<Flight> findByEndDestination(String endDestination);
     List<Flight> findByPrice(Long price);
     List<Flight> findByDistance(Long distance);
+    @Modifying
+    @Query(value = "UPDATE flight SET canceled=1 WHERE flight_id = :flightId", nativeQuery = true)
+    Integer setCanceled(@Param("flightId") Long flightId);
 }

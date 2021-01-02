@@ -9,5 +9,5 @@ public interface IFlightService {
     List<Flight> getAvailableFlights(Pageable pageable);
     List<Flight> searchFlights(Flight flight);
     Boolean addFlight(Flight flight);
-    Boolean deleteFlight(Long id);
+    Boolean cancelFlight(Long flightId);
 }
