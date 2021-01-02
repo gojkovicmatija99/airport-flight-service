@@ -21,6 +21,7 @@ public class FlightController {
         this.flightService = flightService;
     }
 
+    @CrossOrigin
     @GetMapping("/all/{page}")
     public ResponseEntity<List<Flight>> availableFlights(@PathVariable Integer page) {
         Pageable pageable = PageRequest.of(0, 1);

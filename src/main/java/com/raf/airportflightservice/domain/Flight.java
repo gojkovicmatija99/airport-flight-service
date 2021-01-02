@@ -16,6 +16,7 @@ public class Flight {
     private Long distance;
     private Long price;
     private Long currentPassengers;
+    private Boolean canceled;
 
     public Flight(Long airplaneId, String startDestination, String endDestination, Long distance, Long price) {
         this.airplaneId = airplaneId;
@@ -24,6 +25,7 @@ public class Flight {
         this.distance = distance;
         this.price = price;
         this.currentPassengers = 0l;
+        this.canceled = false;
     }
 
     public Flight() {
@@ -88,6 +90,14 @@ public class Flight {
 
     public void setCurrentPassengers(Long currentPassengers) {
         this.currentPassengers = currentPassengers;
+    }
+
+    public Boolean getCanceled() {
+        return canceled;
+    }
+
+    public void setCanceled(Boolean canceled) {
+        this.canceled = canceled;
     }
 
     @Override
