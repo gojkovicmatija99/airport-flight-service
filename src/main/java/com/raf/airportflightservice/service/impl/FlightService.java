@@ -48,7 +48,7 @@ public class FlightService implements IFlightService {
     @Override
     public Boolean cancelFlight(Long flightId) {
         flightRepository.setCanceled(flightId);
-        ResponseEntity<Object> responseEntity = UtilsMethods.sendGet("http://localhost:8081/purchase/cancel" + flightId);
+        ResponseEntity<Object> responseEntity = UtilsMethods.sendGet("http://localhost:8081/purchase/cancel/" + flightId);
         return true;
     }
 }

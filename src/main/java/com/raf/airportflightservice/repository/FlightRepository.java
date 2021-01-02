@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,7 +20,8 @@ public interface FlightRepository extends JpaRepository<Flight, Long> {
     List<Flight> findByEndDestination(String endDestination);
     List<Flight> findByPrice(Long price);
     List<Flight> findByDistance(Long distance);
-    @Modifying
-    @Query(value = "UPDATE flight SET canceled=1 WHERE flight_id = :flightId", nativeQuery = true)
+    @Modifying(clearAutomatically = true)
+    @Transactional
+    @Query(value = "UPDATE flight SET canceled=1 WHERE id = :flightId", nativeQuery = true)
     Integer setCanceled(@Param("flightId") Long flightId);
 }
