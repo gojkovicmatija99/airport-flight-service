@@ -8,6 +8,6 @@ import java.util.List;
 public interface IFlightService {
     List<Flight> getAvailableFlights(Pageable pageable);
     List<Flight> searchFlights(Flight flight);
-    Boolean addFlights(Flight flight);
-    Boolean deleteFlights(Long id);
+    Boolean addFlight(Flight flight);
+    Boolean deleteFlight(Long id);
 }

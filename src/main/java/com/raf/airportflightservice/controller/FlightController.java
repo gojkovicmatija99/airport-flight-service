@@ -39,4 +39,18 @@ public class FlightController {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
     }
+
+    @PostMapping("/add")
+    public ResponseEntity<List<Flight>> addFlight(@RequestBody Flight flight) {
+        try {
+            Boolean isSaved = flightService.addFlight(flight);
+            if(isSaved)
+                return new ResponseEntity<>(HttpStatus.ACCEPTED);
+            else
+                return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+    }
 }

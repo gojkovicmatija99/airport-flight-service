@@ -38,7 +38,7 @@ public class FlightService implements IFlightService {
     }
 
     @Override
-    public Boolean addFlights(Flight flight) {
+    public Boolean addFlight(Flight flight) {
         try {
             flightRepository.saveAndFlush(flight);
             return true;
@@ -49,7 +49,7 @@ public class FlightService implements IFlightService {
     }
 
     @Override
-    public Boolean deleteFlights(Long id) {
+    public Boolean deleteFlight(Long id) {
         return false;
     }
 }
