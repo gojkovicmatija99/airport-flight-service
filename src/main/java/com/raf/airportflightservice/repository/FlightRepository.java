@@ -13,8 +13,7 @@ import java.util.List;
 public interface FlightRepository extends JpaRepository<Flight, Long> {
     @Query(value = "SELECT f.* FROM flight f INNER JOIN airplane a ON a.id = f.airplane_id WHERE f.current_passengers < a.number_of_seats", nativeQuery = true)
     List<Flight> getAvailableFlights(Pageable pageable);
-    @Query(value = "SELECT * FROM flight WHERE airplane_id = :planeId", nativeQuery = true)
-    List<Flight> findByAirplaneId(@Param("planeId") Long planeId);
+    List<Flight> findByAirplaneId(Long airplaneId);
     List<Flight> findByStartDestination(String startDestination);
     List<Flight> findByEndDestination(String endDestination);
     List<Flight> findByPrice(Long price);
