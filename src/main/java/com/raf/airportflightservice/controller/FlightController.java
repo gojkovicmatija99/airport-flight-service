@@ -8,8 +8,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import javax.jms.Queue;
 import java.util.List;
 
 @RestController
@@ -24,13 +26,14 @@ public class FlightController {
     @CrossOrigin
     @GetMapping("/all/{page}")
     public ResponseEntity<List<Flight>> availableFlights(@PathVariable Integer page) {
-        Pageable pageable = PageRequest.of(0, 1);
+        Pageable pageable = PageRequest.of(0, 3);
         for(int i=1; i<page; i++)
             pageable = pageable.next();
         return new ResponseEntity<>(flightService.getAvailableFlights(pageable), HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("/search")
+    @CrossOrigin
+    @PostMapping("/search")
     public ResponseEntity<List<Flight>> searchBy(@RequestBody Flight flight) {
         try {
             List<Flight> flightsWithPlaneId = flightService.searchFlights(flight);

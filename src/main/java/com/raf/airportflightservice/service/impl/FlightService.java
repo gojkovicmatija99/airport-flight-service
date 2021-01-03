@@ -7,13 +7,27 @@ import com.raf.airportflightservice.utils.UtilsMethods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.jms.Queue;
 import java.util.List;
 
 @Service
 public class FlightService implements IFlightService {
     private FlightRepository flightRepository;
+
+    @Autowired
+    JmsTemplate jmsTemplate;
+
+    @Autowired
+    Queue usersQueue;
+
+    @Autowired
+    Queue flightsQueue;
+
+    @Autowired
+    Queue ticketsQueue;
 
     public FlightService(FlightRepository flightRepository) {
         this.flightRepository = flightRepository;
@@ -48,7 +62,7 @@ public class FlightService implements IFlightService {
     @Override
     public Boolean cancelFlight(Long flightId) {
         flightRepository.setCanceled(flightId);
-        ResponseEntity<Object> responseEntity = UtilsMethods.sendGet("http://localhost:8081/purchase/cancel/" + flightId);
+        jmsTemplate.convertAndSend(ticketsQueue, flightId.toString());
         return true;
     }
 }
