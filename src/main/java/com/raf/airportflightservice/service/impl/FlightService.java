@@ -21,12 +21,6 @@ public class FlightService implements IFlightService {
     JmsTemplate jmsTemplate;
 
     @Autowired
-    Queue usersQueue;
-
-    @Autowired
-    Queue flightsQueue;
-
-    @Autowired
     Queue ticketsQueue;
 
     public FlightService(FlightRepository flightRepository) {

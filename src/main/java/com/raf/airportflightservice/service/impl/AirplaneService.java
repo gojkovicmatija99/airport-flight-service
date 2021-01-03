@@ -15,7 +15,7 @@ import java.util.List;
 public class AirplaneService implements IAirplaneService {
     private AirplaneRepository airplaneRepository;
 
-    public AirplaneService(AirplaneRepository airplaneRepository, FlightRepository flightRepository) {
+    public AirplaneService(AirplaneRepository airplaneRepository) {
         this.airplaneRepository = airplaneRepository;
     }
 
@@ -29,7 +29,7 @@ public class AirplaneService implements IAirplaneService {
     public Boolean deleteAirplane(Long id) {
         Flight flight = new Flight();
         flight.setAirplaneId(id);
-        ResponseEntity<Object> responseEntity = UtilsMethods.sendPost("http://localhost:8080/flight/search", flight);
+        ResponseEntity<Object> responseEntity = UtilsMethods.sendPost("http://localhost:8082/flight/search", flight);
         List<Flight> flights = (List<Flight>) responseEntity.getBody();
         if(flights.size() == 0) {
             airplaneRepository.deleteById(id);
