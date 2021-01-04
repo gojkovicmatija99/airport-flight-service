@@ -18,20 +18,22 @@ public class AirplaneController {
         this.airplaneService = airplaneService;
     }
 
+    @CrossOrigin
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<List<Flight>> deleteAirplane(@PathVariable Long id) {
         Boolean isDeleted = airplaneService.deleteAirplane(id);
         if(isDeleted)
-            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(HttpStatus.OK);
         else
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
+    @CrossOrigin
     @PostMapping("/add")
     public ResponseEntity<List<Flight>> addAirplane(@RequestBody Airplane airplane) {
         try {
             airplaneService.addAirplane(airplane);
-            return new ResponseEntity(HttpStatus.ACCEPTED);
+            return new ResponseEntity(HttpStatus.OK);
         }
         catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

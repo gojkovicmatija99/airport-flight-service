@@ -59,4 +59,10 @@ public class FlightService implements IFlightService {
         jmsTemplate.convertAndSend(ticketsQueue, flightId.toString());
         return true;
     }
+
+    @Override
+    public Long getDistance(Long flightId) {
+        Flight flight = flightRepository.findById(flightId).get();
+        return flight.getDistance();
+    }
 }

@@ -43,30 +43,43 @@ public class FlightController {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
     }
-
+    @CrossOrigin
     @PostMapping("/add")
     public ResponseEntity<List<Flight>> addFlight(@RequestBody Flight flight) {
         try {
             Boolean isSaved = flightService.addFlight(flight);
             if(isSaved)
-                return new ResponseEntity<>(HttpStatus.ACCEPTED);
+                return new ResponseEntity<>(HttpStatus.OK);
             else
-                return new ResponseEntity<>(HttpStatus.ACCEPTED);
+                return new ResponseEntity<>(HttpStatus.OK);
         }
         catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
     }
 
+    @CrossOrigin
     @GetMapping("/cancel/{flightId}")
     public ResponseEntity cancelFlight(@PathVariable Long flightId) {
         try {
             flightService.cancelFlight(flightId);
-            return new ResponseEntity(HttpStatus.ACCEPTED);
+            return new ResponseEntity(HttpStatus.OK);
         }
         catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/distance/{flightId}")
+    public ResponseEntity<Long> getDistance(@PathVariable Long flightId) {
+        try {
+            Long distance = flightService.getDistance(flightId);
+            return new ResponseEntity(distance, HttpStatus.ACCEPTED);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity(0, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
