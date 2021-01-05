@@ -6,9 +6,11 @@ import com.raf.airportflightservice.service.IFlightService;
 import com.raf.airportflightservice.utils.UtilsMethods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 import javax.jms.Queue;
 import java.util.List;
@@ -25,6 +27,14 @@ public class FlightService implements IFlightService {
 
     public FlightService(FlightRepository flightRepository) {
         this.flightRepository = flightRepository;
+    }
+
+    private Boolean checkIfAdmin(String token) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", token);
+        ResponseEntity<Object> responseEntity = UtilsMethods.sendGetHeader("http://localhost:8081/check_admin", headers);
+        Boolean isAdmin = (Boolean) responseEntity.getBody();
+        return isAdmin;
     }
 
     @Override
@@ -48,16 +58,22 @@ public class FlightService implements IFlightService {
     }
 
     @Override
-    public Boolean addFlight(Flight flight) {
-        flightRepository.saveAndFlush(flight);
-        return true;
+    public Boolean addFlight(Flight flight, String token) {
+        if(checkIfAdmin(token)) {
+            flightRepository.saveAndFlush(flight);
+            return true;
+        }
+        return false;
     }
 
     @Override
-    public Boolean cancelFlight(Long flightId) {
-        flightRepository.setCanceled(flightId);
-        jmsTemplate.convertAndSend(ticketsQueue, flightId.toString());
-        return true;
+    public Boolean cancelFlight(Long flightId, String token) {
+        if(checkIfAdmin(token)) {
+            flightRepository.setCanceled(flightId);
+            jmsTemplate.convertAndSend(ticketsQueue, flightId.toString());
+            return true;
+        }
+        return false;
     }
 
     @Override

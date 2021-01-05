@@ -29,7 +29,7 @@ public class FlightController {
         Pageable pageable = PageRequest.of(0, 3);
         for(int i=1; i<page; i++)
             pageable = pageable.next();
-        return new ResponseEntity<>(flightService.getAvailableFlights(pageable), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(flightService.getAvailableFlights(pageable), HttpStatus.OK);
     }
 
     @CrossOrigin
@@ -37,7 +37,7 @@ public class FlightController {
     public ResponseEntity<List<Flight>> searchBy(@RequestBody Flight flight) {
         try {
             List<Flight> flightsWithPlaneId = flightService.searchFlights(flight);
-            return new ResponseEntity<>(flightsWithPlaneId, HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(flightsWithPlaneId, HttpStatus.OK);
         }
         catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
@@ -45,13 +45,13 @@ public class FlightController {
     }
     @CrossOrigin
     @PostMapping("/add")
-    public ResponseEntity<List<Flight>> addFlight(@RequestBody Flight flight) {
+    public ResponseEntity<List<Flight>> addFlight(@RequestBody Flight flight, @RequestHeader (value = "Authorization") String token) {
         try {
-            Boolean isSaved = flightService.addFlight(flight);
+            Boolean isSaved = flightService.addFlight(flight, token);
             if(isSaved)
                 return new ResponseEntity<>(HttpStatus.OK);
             else
-                return new ResponseEntity<>(HttpStatus.OK);
+                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
@@ -60,13 +60,15 @@ public class FlightController {
 
     @CrossOrigin
     @GetMapping("/cancel/{flightId}")
-    public ResponseEntity cancelFlight(@PathVariable Long flightId) {
+    public ResponseEntity cancelFlight(@PathVariable Long flightId, @RequestHeader (value = "Authorization") String token) {
         try {
-            flightService.cancelFlight(flightId);
-            return new ResponseEntity(HttpStatus.OK);
+            Boolean isCanceled = flightService.cancelFlight(flightId, token);
+            if(isCanceled)
+                return new ResponseEntity(HttpStatus.OK);
+            else
+                return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         catch (Exception e) {
-            e.printStackTrace();
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -78,7 +80,6 @@ public class FlightController {
             return new ResponseEntity(distance, HttpStatus.ACCEPTED);
         }
         catch (Exception e) {
-            e.printStackTrace();
             return new ResponseEntity(0, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

@@ -8,7 +8,7 @@ import java.util.List;
 public interface IFlightService {
     List<Flight> getAvailableFlights(Pageable pageable);
     List<Flight> searchFlights(Flight flight);
-    Boolean addFlight(Flight flight);
-    Boolean cancelFlight(Long flightId);
+    Boolean addFlight(Flight flight, String token);
+    Boolean cancelFlight(Long flightId, String token);
     Long getDistance(Long flightId);
 }
