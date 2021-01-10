@@ -3,6 +3,7 @@ package com.raf.airportflightservice.controller;
 import com.raf.airportflightservice.domain.Airplane;
 import com.raf.airportflightservice.domain.Flight;
 import com.raf.airportflightservice.service.impl.AirplaneService;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

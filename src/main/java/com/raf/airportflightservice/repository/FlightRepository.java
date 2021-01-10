@@ -24,4 +24,8 @@ public interface FlightRepository extends JpaRepository<Flight, Long> {
     @Transactional
     @Query(value = "UPDATE flight SET canceled=1 WHERE id = :flightId", nativeQuery = true)
     Integer setCanceled(@Param("flightId") Long flightId);
+    @Modifying(clearAutomatically = true)
+    @Transactional
+    @Query(value = "UPDATE flight SET current_passengers=:currPlusOne WHERE id = :flightId", nativeQuery = true)
+    Integer updatePassengers(@Param("flightId") Long flightId, @Param("currPlusOne") Long currPlusOne);
 }
