@@ -42,6 +42,11 @@ public class FlightService implements IFlightService {
     }
 
     @Override
+    public Integer getNumberOfAvailableFlights() {
+        return flightRepository.getNumberOfAvailableFlights();
+    }
+
+    @Override
     public List<Flight> searchFlights(Flight flight) {
         if(flight.getStartDestination() != null)
             return flightRepository.findByStartDestination(flight.getStartDestination());

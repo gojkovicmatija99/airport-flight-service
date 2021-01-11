@@ -73,7 +73,19 @@ public class FlightController {
     public ResponseEntity<Long> getDistance(@PathVariable Long flightId) {
         try {
             Long distance = flightService.getDistance(flightId);
-            return new ResponseEntity(distance, HttpStatus.ACCEPTED);
+            return new ResponseEntity(distance, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity(0, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @CrossOrigin
+    @GetMapping("/size")
+    public ResponseEntity<Integer> getNumberOfAvailableFlights() {
+        try {
+            Integer num = flightService.getNumberOfAvailableFlights();
+            return new ResponseEntity(num, HttpStatus.OK);
         }
         catch (Exception e) {
             return new ResponseEntity(0, HttpStatus.INTERNAL_SERVER_ERROR);

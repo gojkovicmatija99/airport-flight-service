@@ -28,4 +28,6 @@ public interface IFlightRepository extends JpaRepository<Flight, Long> {
     @Transactional
     @Query(value = "UPDATE flight SET current_passengers=:currPlusOne WHERE id = :flightId", nativeQuery = true)
     Integer updatePassengers(@Param("flightId") Long flightId, @Param("currPlusOne") Long currPlusOne);
+    @Query(value = "SELECT COUNT(*) FROM flight f INNER JOIN airplane a ON a.id = f.airplane_id WHERE f.current_passengers < a.number_of_seats", nativeQuery = true)
+    Integer getNumberOfAvailableFlights();
 }
