@@ -87,6 +87,12 @@ public class FlightService implements IFlightService {
     }
 
     @Override
+    public Long getPrice(Long flightId) {
+        Flight flight = flightRepository.findById(flightId).get();
+        return flight.getPrice();
+    }
+
+    @Override
     public Boolean incrementCurrentPassengers(Long flightId) {
         Long currentPassengers = (flightRepository.findById(flightId)).get().getCurrentPassengers();
         flightRepository.updatePassengers(flightId, currentPassengers + 1);

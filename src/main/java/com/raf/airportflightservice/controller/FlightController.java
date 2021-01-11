@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 @RestController
 @RequestMapping("/flight")
 public class FlightController {
@@ -50,6 +49,7 @@ public class FlightController {
                 return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
     }
@@ -86,6 +86,17 @@ public class FlightController {
         try {
             Integer num = flightService.getNumberOfAvailableFlights();
             return new ResponseEntity(num, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity(0, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/price/{flightId}")
+    public ResponseEntity<Long> getPrice(@PathVariable Long flightId) {
+        try {
+            Long price = flightService.getPrice(flightId);
+            return new ResponseEntity(price, HttpStatus.OK);
         }
         catch (Exception e) {
             return new ResponseEntity(0, HttpStatus.INTERNAL_SERVER_ERROR);
