@@ -1,25 +1,21 @@
 package com.raf.airportflightservice.controller;
 
 import com.raf.airportflightservice.domain.Flight;
-import com.raf.airportflightservice.repository.FlightRepository;
-import com.raf.airportflightservice.service.impl.FlightService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.raf.airportflightservice.service.IFlightService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.jms.core.JmsTemplate;
 import org.springframework.web.bind.annotation.*;
 
-import javax.jms.Queue;
 import java.util.List;
 
 @RestController
 @RequestMapping("/flight")
 public class FlightController {
-    private FlightService flightService;
+    private IFlightService flightService;
 
-    public FlightController(FlightService flightService) {
+    public FlightController(IFlightService flightService) {
         this.flightService = flightService;
     }
 

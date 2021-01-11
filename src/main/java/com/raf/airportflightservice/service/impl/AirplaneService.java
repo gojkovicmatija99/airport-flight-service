@@ -2,8 +2,7 @@ package com.raf.airportflightservice.service.impl;
 
 import com.raf.airportflightservice.domain.Airplane;
 import com.raf.airportflightservice.domain.Flight;
-import com.raf.airportflightservice.repository.AirplaneRepository;
-import com.raf.airportflightservice.repository.FlightRepository;
+import com.raf.airportflightservice.repository.IAirplaneRepository;
 import com.raf.airportflightservice.service.IAirplaneService;
 import com.raf.airportflightservice.utils.UtilsMethods;
 import org.springframework.http.HttpHeaders;
@@ -14,9 +13,9 @@ import java.util.List;
 
 @Service
 public class AirplaneService implements IAirplaneService {
-    private AirplaneRepository airplaneRepository;
+    private IAirplaneRepository airplaneRepository;
 
-    public AirplaneService(AirplaneRepository airplaneRepository) {
+    public AirplaneService(IAirplaneRepository airplaneRepository) {
         this.airplaneRepository = airplaneRepository;
     }
 

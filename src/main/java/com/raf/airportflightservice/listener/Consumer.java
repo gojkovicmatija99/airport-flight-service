@@ -1,14 +1,15 @@
 package com.raf.airportflightservice.listener;
 
+import com.raf.airportflightservice.service.IFlightService;
 import com.raf.airportflightservice.service.impl.FlightService;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
 @Component
 public class Consumer {
-    private FlightService flightService;
+    private IFlightService flightService;
 
-    public Consumer(FlightService flightService) {
+    public Consumer(IFlightService flightService) {
         this.flightService = flightService;
     }
 

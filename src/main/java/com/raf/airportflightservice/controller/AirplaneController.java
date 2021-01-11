@@ -2,6 +2,7 @@ package com.raf.airportflightservice.controller;
 
 import com.raf.airportflightservice.domain.Airplane;
 import com.raf.airportflightservice.domain.Flight;
+import com.raf.airportflightservice.service.IAirplaneService;
 import com.raf.airportflightservice.service.impl.AirplaneService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,9 +14,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/airplane")
 public class AirplaneController {
-    private AirplaneService airplaneService;
+    private IAirplaneService airplaneService;
 
-    public AirplaneController(AirplaneService airplaneService) {
+    public AirplaneController(IAirplaneService airplaneService) {
         this.airplaneService = airplaneService;
     }
 

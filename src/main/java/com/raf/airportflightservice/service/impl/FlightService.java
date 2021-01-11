@@ -1,7 +1,7 @@
 package com.raf.airportflightservice.service.impl;
 
 import com.raf.airportflightservice.domain.Flight;
-import com.raf.airportflightservice.repository.FlightRepository;
+import com.raf.airportflightservice.repository.IFlightRepository;
 import com.raf.airportflightservice.service.IFlightService;
 import com.raf.airportflightservice.utils.UtilsMethods;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,14 +10,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestHeader;
 
 import javax.jms.Queue;
 import java.util.List;
 
 @Service
 public class FlightService implements IFlightService {
-    private FlightRepository flightRepository;
+    private IFlightRepository flightRepository;
 
     @Autowired
     JmsTemplate jmsTemplate;
@@ -25,7 +24,7 @@ public class FlightService implements IFlightService {
     @Autowired
     Queue ticketsQueue;
 
-    public FlightService(FlightRepository flightRepository) {
+    public FlightService(IFlightRepository flightRepository) {
         this.flightRepository = flightRepository;
     }
 

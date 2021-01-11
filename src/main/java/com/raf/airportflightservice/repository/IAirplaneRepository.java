@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface AirplaneRepository extends JpaRepository<Airplane, Long> {
+public interface IAirplaneRepository extends JpaRepository<Airplane, Long> {
 }
