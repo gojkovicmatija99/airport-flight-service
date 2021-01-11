@@ -1,6 +1,7 @@
 package com.raf.airportflightservice.controller;
 
 import com.raf.airportflightservice.domain.Flight;
+import com.raf.airportflightservice.dto.FlightDto;
 import com.raf.airportflightservice.service.IFlightService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -69,17 +70,6 @@ public class FlightController {
         }
     }
 
-    @GetMapping("/distance/{flightId}")
-    public ResponseEntity<Long> getDistance(@PathVariable Long flightId) {
-        try {
-            Long distance = flightService.getDistance(flightId);
-            return new ResponseEntity(distance, HttpStatus.OK);
-        }
-        catch (Exception e) {
-            return new ResponseEntity(0, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
     @CrossOrigin
     @GetMapping("/size")
     public ResponseEntity<Integer> getNumberOfAvailableFlights() {
@@ -92,14 +82,15 @@ public class FlightController {
         }
     }
 
-    @GetMapping("/price/{flightId}")
-    public ResponseEntity<Long> getPrice(@PathVariable Long flightId) {
+    @GetMapping("/get/{flightId}")
+    public ResponseEntity<FlightDto> getFlight(@PathVariable Long flightId) {
         try {
-            Long price = flightService.getPrice(flightId);
-            return new ResponseEntity(price, HttpStatus.OK);
+            Flight flight = flightService.getFlight(flightId);
+            FlightDto flightDto = new FlightDto(flight.getPrice(), flight.getDistance(), flight.getCanceled());
+            return new ResponseEntity(flightDto, HttpStatus.OK);
         }
         catch (Exception e) {
-            return new ResponseEntity(0, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

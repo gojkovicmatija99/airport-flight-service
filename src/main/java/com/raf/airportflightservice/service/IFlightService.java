@@ -11,7 +11,6 @@ public interface IFlightService {
     List<Flight> searchFlights(Flight flight);
     Boolean addFlight(Flight flight, String token);
     Boolean cancelFlight(Long flightId, String token);
-    Long getDistance(Long flightId);
-    Long getPrice(Long flightId);
     Boolean incrementCurrentPassengers(Long flightId);
+    Flight getFlight(Long flightId);
 }

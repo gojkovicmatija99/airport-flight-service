@@ -81,23 +81,14 @@ public class FlightService implements IFlightService {
     }
 
     @Override
-    public Long getDistance(Long flightId) {
-        Flight flight = flightRepository.findById(flightId).get();
-        return flight.getDistance();
-    }
-
-    @Override
-    public Long getPrice(Long flightId) {
-        Flight flight = flightRepository.findById(flightId).get();
-        return flight.getPrice();
-    }
-
-    @Override
     public Boolean incrementCurrentPassengers(Long flightId) {
         Long currentPassengers = (flightRepository.findById(flightId)).get().getCurrentPassengers();
         flightRepository.updatePassengers(flightId, currentPassengers + 1);
         return true;
     }
 
-
+    @Override
+    public Flight getFlight(Long flightId) {
+        return flightRepository.findById(flightId).get();
+    }
 }
