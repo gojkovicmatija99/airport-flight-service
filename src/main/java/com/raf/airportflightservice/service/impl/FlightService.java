@@ -31,7 +31,7 @@ public class FlightService implements IFlightService {
     private Boolean checkIfAdmin(String token) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", token);
-        ResponseEntity<Object> responseEntity = UtilsMethods.sendGetHeader("http://localhost:8081/check_admin", headers);
+        ResponseEntity<Object> responseEntity = UtilsMethods.sendGetHeader("http://localhost:8762/rest-airport-user-service/is_admin", headers);
         Boolean isAdmin = (Boolean) responseEntity.getBody();
         return isAdmin;
     }

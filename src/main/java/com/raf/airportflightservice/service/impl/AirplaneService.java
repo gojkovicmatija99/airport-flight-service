@@ -23,7 +23,7 @@ public class AirplaneService implements IAirplaneService {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", token);
         System.out.println(headers);
-        ResponseEntity<Object> responseEntity = UtilsMethods.sendGetHeader("http://localhost:8081/is_admin", headers);
+        ResponseEntity<Object> responseEntity = UtilsMethods.sendGetHeader("http://localhost:8762/rest-airport-user-service/is_admin", headers);
         Boolean isAdmin = (Boolean) responseEntity.getBody();
         return isAdmin;
     }
@@ -41,7 +41,7 @@ public class AirplaneService implements IAirplaneService {
     public Boolean deleteAirplane(Long id, String token) {
         Flight flight = new Flight();
         flight.setAirplaneId(id);
-        ResponseEntity<Object> responseEntity = UtilsMethods.sendPost("http://localhost:8082/flight/search", flight);
+        ResponseEntity<Object> responseEntity = UtilsMethods.sendPost("http://localhost:8762/rest-airport-flight-service/flight/search", flight);
         List<Flight> flights = (List<Flight>) responseEntity.getBody();
         if(flights.size() == 0 && checkIfAdmin(token)) {
             airplaneRepository.deleteById(id);
